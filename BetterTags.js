@@ -1,11 +1,21 @@
-// Helper Functions
+// Forked from Eran Boodnero (eboodnero) Roaman
+// https://chrome.google.com/webstore/detail/roaman/milpmfbdbfoljjbjnihcbcbafebdcbib/
+// Fixed by kleinlennart
+
+// alert("Starting Addon...")
 
 function getCaretPosition(ctrl) {
 	var CaretPos = 0;
 
 	if (ctrl.selectionStart || ctrl.selectionStart == 0) {
 		CaretPos = ctrl.selectionStart;
+	} else if (document.selection) {// Legacy IE
+		ctrl.focus();
+		var Sel = document.selection.createRange();
+		Sel.moveStart('character', -ctrl.value.length);
+		CaretPos = Sel.text.length;
 	}
+
 	return CaretPos;
 }
 
@@ -23,12 +33,11 @@ function setCaretPosition(ctrl, pos) {
 	}
 }
 
-// Event Listener Function
 function setKeyListener() {
 
-	// document.onkeyup = function (event) {
+	document.onkeyup = function (event) {
 
-		// if (document.querySelector("textarea")) {
+		if (document.querySelector("textarea")) {
 
 			// onkeydown
 			document.querySelector("textarea").onkeydown = function (event) {
@@ -76,11 +85,10 @@ function setKeyListener() {
 				}
 			}
 		}
-	// }
-// }
+	}
+}
 
 
 var newText;
 var selectedText;
-alert("Running the Dev Version of BetterTags!")
 setKeyListener();
