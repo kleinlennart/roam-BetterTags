@@ -83,3 +83,4 @@ function setKeyListener() {
 var newText;
 var selectedText;
 setKeyListener();
+alert("Running the Dev Version of BetterTags!")
